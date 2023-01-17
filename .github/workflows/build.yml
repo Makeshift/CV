@@ -8,6 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set Commit Description
+        id: commit_desc
+        run: |
+          echo "::set-output name=value::$(git log -1 --pretty=%B)"
+
       - name: Regex match on commit
         uses: sunil-samtani/regex-action@v2
         id: bump
@@ -23,7 +28,7 @@ jobs:
             ${{ contains(fromJson('["major", "minor", "patch"]'), steps.bump.outputs.first_match) && steps.bump.outputs.first_match ||
             'patch' }}
 
-      - uses: mad9000/actions-find-and-replace-string@2
+      - uses: mad9000/actions-find-and-replace-string@3
         id: semver-short
         with:
           source: ${{ steps.semver.outputs.version }}
@@ -34,7 +39,7 @@ jobs:
           docker run --rm -e 'version=${{ steps.semver.outputs.version }}' -e 'shortversion=${{ steps.semver-short.outputs.value }}' -v
           "$(pwd):/data" blang/latex pdflatex "Connor Bell CV.tex"
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: Connor Bell CV.pdf
           path: Connor Bell CV.pdf
