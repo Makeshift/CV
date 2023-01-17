@@ -50,6 +50,14 @@
 \getenv[\version]{version}
 \getenv[\shortversion]{shortversion}
 
+\usepackage{atbegshi,picture}
+\usepackage{transparent}
+
+
+\AtBeginShipout{\AtBeginShipoutUpperLeft{%
+  \put(\dimexpr\paperwidth-1cm\relax,-1.5cm){\makebox[0pt][r]{\textcolor{LightGrey}{Version: \version}}}%
+}}
+
 \begin{document}
 \name{Connor Bell}
 \tagline{\{ AWS Solutions Architecture / DevOps / Node.JS / Linux / Docker / Terraform \}}

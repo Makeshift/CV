@@ -1,0 +1,40 @@
+name: Build & Publish
+on:
+  - push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Regex match on commit
+        uses: sunil-samtani/regex-action@v2
+        id: bump
+        with:
+          search_string: ${{ steps.commit_desc.outputs.value }}
+          regex_pattern: 'major|minor|patch'
+
+      - name: Increment Semver
+        uses: Makeshift/increment-semver@v0.1.6
+        id: semver
+        with:
+          version-level:
+            ${{ contains(fromJson('["major", "minor", "patch"]'), steps.bump.outputs.first_match) && steps.bump.outputs.first_match ||
+            'patch' }}
+
+      - uses: mad9000/actions-find-and-replace-string@2
+        id: semver-short
+        with:
+          source: ${{ steps.semver.outputs.version }}
+          find: '.'
+          replace: ''
+
+      - run:
+          docker run --rm -e 'version=${{ steps.semver.outputs.version }}' -e 'shortversion=${{ steps.semver-short.outputs.value }}' -v
+          "$(pwd):/data" blang/latex pdflatex "Connor Bell CV.tex"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Connor Bell CV.pdf
+          path: Connor Bell CV.pdf
