@@ -8,7 +8,7 @@ I expressly do not allow recruiters to edit my CV, as many times I have noticed 
 
 ## Download
 
-The latest copy of my CV can be downloaded in PDF format from here.
+The latest copy of my CV can be downloaded in PDF format from [here](https://github.com/Makeshift/CV/releases/download/latest/Connor.Bell.CV.pdf).
 
 ## Website
 
