@@ -1,0 +1,127 @@
+\documentclass[10pt,a4paper,ragged2e]{altacv}
+\RequirePackage{hyperref}
+\usepackage{ifxetex,ifluatex}
+
+\ifxetex
+  \usepackage{catchfile}
+  \newcommand\getenv[2][]{%
+    \immediate\write18{kpsewhich --var-value #2 > \jobname.tmp}%
+    \CatchFileDef{\temp}{\jobname.tmp}{\endlinechar=-1}%
+    \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
+\else
+  \ifluatex
+    \newcommand\getenv[2][]{%
+      \edef\temp{\directlua{tex.sprint(
+        kpse.var_value("\luatexluaescapestring{#2}") or "" ) }}%
+      \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
+  \else
+    \usepackage{catchfile}
+    \newcommand{\getenv}[2][]{%
+      \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
+      \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
+  \fi
+\fi
+
+\usepackage{xstring}
+\usepackage{hyphenat}
+\usepackage{microtype}
+\tolerance=9999
+\emergencystretch=10pt
+\hyphenpenalty=1000
+\exhyphenpenalty=100
+
+\geometry{left=1cm,right=9cm,marginparwidth=6.8cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[default]{lato}
+
+\definecolor{VividPurple}{HTML}{FF8106}
+\definecolor{SlateGrey}{HTML}{2E2E2E}
+\definecolor{LightGrey}{HTML}{666666}
+\colorlet{heading}{VividPurple}
+\colorlet{accent}{VividPurple}
+\colorlet{emphasis}{SlateGrey}
+\colorlet{body}{LightGrey}
+
+\renewcommand{\itemmarker}{{\small\textbullet}}
+\renewcommand{\ratingmarker}{\faCircle}
+
+\getenv[\version]{version}
+\getenv[\shortversion]{shortversion}
+
+\begin{document}
+\name{Connor Bell}
+\tagline{\{ AWS Solutions Architecture / DevOps / Node.JS / Linux / Docker / Terraform \}}
+% \photo{2.3cm}{isso}
+\personalinfo{%
+    \href{mailto:cv-\shortversion@connor-bell.com}{\email{cv-\shortversion@connor-bell.com}}
+    \href{https://goo.gl/maps/13fCVSAsxh428rwcA}{\location{Reading, Berkshire, UK}}
+    \href{https://www.linkedin.com/in/connor--bell/}{\linkedin{connor-{}-bell}}
+    \href{http://github.com/Makeshift}{\github{makeshift}}
+}
+
+\begin{fullwidth}
+\makecvheader
+\end{fullwidth}
+
+\AtBeginEnvironment{itemize}{\small}
+
+\cvsection[page1sidebar]{Current Position}
+
+\cvevent{Senior DevOps Engineer}{The Instutitue for Environmental Analytics}{Apr 2020 -- Current}{Reading}
+
+As the solo DevOps in the company, and without a dedicated Ops team, at The IEA I managed all resources within AWS and a small portion of resources in both a rented Nutanix cluster and Google Cloud.
+\smallskip
+\begin{itemize}
+    \item Architected a WRF data pipeline to replace a set of manually configured on-prem VMs. Transitioned their infrastructure into AWS, utilising Step Functions to orchestrate AWS Batch jobs to run the generation in parallel. The rapid prototyping this allowed reduced turnaround time from 2 months to 2 days, and offered a decease in infrastructure and labour cost of over 90\%.
+    \item Transitioned the company from manually-managed/constructed VMs across multiple clouds/on-prem to fully Terraform-managed AWS infrastructure, introducing autoscaling, spot/reserved instance savings and made every host ephemeral
+    \item Transitioned the flagship product, Energy Metric (a SaaS renewable energy modelling webapp) from a single-VM manual deployment to a cloud-native, highly scalable model with CI/CD
+    \item Transitioned company to GitHub Actions with automatically provisioned ephemeral runners, allowing them to go from a single CI run taking up ~5 hours and only having a concurrency of 2 to permitting as many concurrent runs as necessary and taking around 30 minutes
+    \item Worked closely with development teams to understand their CI/CD usecases in order to best develop their automation to match their workflows
+    \item Built out and integrated tools such as Sentry, Rundeck, Slack-integrated bots, Prometheus \& Grafana
+    \item Introduced and trained development teams on Cloud concepts such as lambdas, cloud blob storage, and permissions and how to utilise them effectively when their projects move from local development environments to the cloud.
+\end{itemize}
+
+\cvsection{Key Skills}
+\begin{itemize}
+    \item Significant experience with various {\bf AWS} products, including EC2, ECS, Route53, CloudFormation, Step Functions, S3 and more. 
+    \item Experience and knowledge of {\bf continuous integration systems} (Github Actions, CircleCI, Jenkins, AWS Code Suite, Drone) and common testing frameworks. 
+    \item Experience developing both internal and customer-facing bespoke {\bf Node.js} solutions. Some of my personal projects can be found on GitHub.
+    \item Extensive knowledge of {\bf Docker} \& Docker-Compose, focusing on converting existing services to serverless.
+    \item Extensive knowledge of {\bf Terraform} \& {\bf Terragrunt}, having designed and developed an AWS account containing over a thousand resources for various projects, with a large number of bespoke modules.
+    \item Experience with {\bf VMware ESXi} and {\bf Xen} Hypervisor as virtualisation platforms, and administration of these systems. 
+    \item Significant experience with backend web development with Node.JS and hosting with {\bf Nginx}, Apache, and Traefik. 
+    \item Experience with the {\bf Atlassian} suite, including Jira, Confluence and Bitbucket.
+\end{itemize}
+\clearpage
+
+\cvsection{Personal Experience}
+I run a homelab for learning new software and practicing, containing a myriad of devices such as a pfSense router, Cisco switches and firewalls, HP and Dell rack servers running Xenserver and Docker, Ubiquiti hardware and a multitude of Raspberry Pi's.
+
+\smallskip
+
+\cvsection[page2sidebar]{Previous Experience}
+
+
+\cvevent{DevOps Engineer}{FICO}{Oct 2017 -- Apr 2020}{Reading}
+\begin{itemize}
+\item Assisted in transitioning from on-premise voice systems to AWS with a focus on infrastructure as code using CloudFormation 
+\item Spearheaded the effort to containerise existing services to run inside an AWS ECS cluster
+\item Maintained on-premise datacentres running a mixture of CentOS7, RHEL6 and RHEL5 running on both bare-metal and XenServer hypervisors
+\item Implemented and maintained CI/CD pipelines using Drone, CloudFormation and Jenkins
+\item Fully developed and maintained a batch file import framework written in Node.JS designed to import millions of cases per day, converting various client formats to a standardised internal format
+\end{itemize}
+
+\divider
+
+\cvevent{Student Developer}{Datel}{June 2015 -- Aug 2016}{Warrington}
+\begin{itemize}
+\item Development of bespoke Sage ERP implementations for customers
+\item Web-based mobile development in Javascript and Node.JS, utilising Microsoft Vision to read customer receipts for a finance tracking system
+\item An NFC based project to allow employees to clock in and out with a swipe of a card
+\end{itemize}
+
+\clearpage
+
+\end{document}
