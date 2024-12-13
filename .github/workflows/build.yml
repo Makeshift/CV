@@ -1,57 +1,26 @@
 name: Build & Publish
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Set Commit Description
-        id: commit_desc
-        run: |
-          echo "value=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
-
-      - name: Regex match on commit
-        uses: sunil-samtani/regex-action@v2
-        id: bump
-        with:
-          search_string: ${{ steps.commit_desc.outputs.value }}
-          regex_pattern: 'major|minor|patch'
-
-      - name: Increment Semver
-        uses: Makeshift/increment-semver@v0.1.6
-        id: semver
-        with:
-          version-level:
-            ${{ contains(fromJson('["major", "minor", "patch"]'), steps.bump.outputs.first_match) && steps.bump.outputs.first_match ||
-            'patch' }}
-
-      - uses: mad9000/actions-find-and-replace-string@3
-        id: semver-short
-        with:
-          source: ${{ steps.semver.outputs.version }}
-          find: '.'
-          replace: ''
-          replaceAll: 'true'
+      - uses: actions/checkout@v4
 
       - run:
-          docker run --rm -e 'version=${{ steps.semver.outputs.version }}' -e 'shortversion=${{ steps.semver-short.outputs.value }}' -v
+          docker run --rm -e 'version=${{ github.ref_name }}' -e 'shortversion=${{ github.ref_name }}' -v
           "$(pwd):/data" blang/latex pdflatex "Connor Bell CV.tex"
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: Connor Bell CV.pdf
           path: Connor Bell CV.pdf
 
-      - uses: 'marvinpinto/action-automatic-releases@latest'
+      - uses: ncipollo/release-action@v1.14.0
         with:
-          repo_token: '${{ secrets.RELEASE_SECRET }}'
-          automatic_release_tag: 'latest'
-          prerelease: false
-          title: 'CV Version ${{ steps.semver.outputs.version }}'
-          files: |
-            Connor Bell CV.pdf
+          tag: ${{ github.ref_name }}
+          name: CV Version ${{ github.ref_name }}
+          artifacts: Connor Bell CV.pdf
