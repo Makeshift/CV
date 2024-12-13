@@ -24,3 +24,6 @@ jobs:
           tag: ${{ github.ref_name }}
           name: CV Version ${{ github.ref_name }}
           artifacts: Connor Bell CV.pdf
+
+      - name: Latest tag
+        uses: EndBug/latest-tag@v1.6.2
