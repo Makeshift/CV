@@ -60,7 +60,7 @@
 
 \begin{document}
 \name{Connor Bell}
-\tagline{\{ AWS Solutions Architecture / DevOps / Node.JS / Linux / Docker / Terraform \}}
+\tagline{\{ Solutions Architecture / DevOps / AWS / Terraform \& Pulumi / Linux / Kubernetes / TypeScript \}}
 % \photo{2.3cm}{isso}
 \personalinfo{%
     \href{mailto:cv-\shortversion@connor-bell.com}{\email{cv-\shortversion@connor-bell.com}}
@@ -77,44 +77,56 @@
 
 \cvsection[page1sidebar]{Current Position}
 
-\cvevent{Senior DevOps Engineer}{The Instutitue for Environmental Analytics}{Apr 2020 -- Current}{Reading}
+\cvevent{Senior DevOps Engineer}{Echobox}{Aug 2023 -- Current}{London - Remote}
 
-As the solo DevOps in the company, and without a dedicated Ops team, at The IEA I managed all resources within AWS and a small portion of resources in both a rented Nutanix cluster and Google Cloud.
+Supporting a large group of developers, I am the primary architect and engineer for cloud infrastructure within Echobox, focusing on AWS \& EKS. I pride myself on providing engineers a fast and smooth experience getting their code into production.
 \smallskip
 \begin{itemize}
-    \item Architected a WRF data pipeline to replace a set of manually configured on-prem VMs. Transitioned their infrastructure into AWS, utilising Step Functions to orchestrate AWS Batch jobs to run the generation in parallel. The rapid prototyping this allowed reduced turnaround time from 2 months to 2 days, and offered a decease in infrastructure and labour cost of over 90\%.
-    \item Transitioned the company from manually-managed/constructed VMs across multiple clouds/on-prem to fully Terraform-managed AWS infrastructure, introducing autoscaling, spot/reserved instance savings and made every host ephemeral
-    \item Transitioned the flagship product, Energy Metric (a SaaS renewable energy modelling webapp) from a single-VM manual deployment to a cloud-native, highly scalable model with CI/CD
-    \item Transitioned company to GitHub Actions with automatically provisioned ephemeral runners, allowing them to go from a single CI run taking up ~5 hours and only having a concurrency of 2 to permitting as many concurrent runs as necessary and taking around 30 minutes
-    \item Worked closely with development teams to understand their CI/CD usecases in order to best develop their automation to match their workflows
-    \item Built out and integrated tools such as Sentry, Rundeck, Slack-integrated bots, Prometheus \& Grafana
-    \item Introduced and trained development teams on Cloud concepts such as lambdas, cloud blob storage, and permissions and how to utilise them effectively when their projects move from local development environments to the cloud.
+  \item Designed and maintained Infrastructure as Code in CDK \& Pulumi targetting AWS and Kubernetes for a variety of workloads
+  \item Migrated CI and CD pipelines from CodeBuild/CodePipeline to GitHub Actions, resulting in significant improvements to quality of life for developers along with a 8x decrease in average end-to-end run-time and an overall reduction in cost with smart utilisation of self-hosted runners
+  \item Authored reusable modules following best-practice recommendations to enable developers to easily deploy MongoDB clusters, EKS clusters and GitHub Actions workflows
+  \item Implemented Helm libraries for standard patterns, significantly reducing duplicate code and maintenance requirements, as well as consistency over the org
+  \item Revamped monitoring and metrics aggregation from a variety of methods into a hub-and-spoke style multi-cluster Prometheus + Thanos implementation, allowing both cluster-level and global-level visibility without sacrificing availability
+  \item Gave 'deep-dive' presentations to technical teams on best-practice AWS and Kubernetes recommendations and worked with them to ensure their workloads were being ran in a scalable, maintainable way
+  \item Helped plan and orchestrate org-wide migrations of MongoDB and EKS clusters to new regions, ensuring minimal downtime and impact to customers
 \end{itemize}
 
 \cvsection{Key Skills}
 \begin{itemize}
-    \item Significant experience with various {\bf AWS} products, including EC2, ECS, Route53, CloudFormation, Step Functions, S3 and more. 
-    \item Experience and knowledge of {\bf continuous integration systems} (Github Actions, CircleCI, Jenkins, AWS Code Suite, Drone) and common testing frameworks. 
-    \item Experience developing both internal and customer-facing bespoke {\bf Node.js} solutions. Some of my personal projects can be found on GitHub.
-    \item Extensive knowledge of {\bf Docker} \& Docker-Compose, focusing on converting existing services to serverless.
-    \item Extensive knowledge of {\bf Terraform} \& {\bf Terragrunt}, having designed and developed an AWS account containing over a thousand resources for various projects, with a large number of bespoke modules.
-    \item Experience with {\bf VMware ESXi} and {\bf Xen} Hypervisor as virtualisation platforms, and administration of these systems. 
-    \item Significant experience with backend web development with Node.JS and hosting with {\bf Nginx}, Apache, and Traefik. 
-    \item Experience with the {\bf Atlassian} suite, including Jira, Confluence and Bitbucket.
+  \item Development of bespoke {\bf AWS} solutions via {\bf Terraform}, {\bf CDK} and {\bf Pulumi}
+  \item Significant experience with various {\bf AWS} products, including EC2, ECS, Route53, CloudFormation, Step Functions, S3 and more.
+  \item Experience and knowledge of {\bf continuous integration systems} (Github Actions, CircleCI, Jenkins, AWS Code Suite, Drone) and common testing frameworks.
+  \item Experience developing both internal and customer-facing bespoke {\bf Node.js} solutions. Some of my personal projects can be found on GitHub.
+  \item Extensive knowledge of {\bf Docker} \& Docker-Compose, focusing on converting existing services to serverless.
+  \item Experience with designing and maintaining {\bf Kubernetes} clusters for production usage, both in AWS EKS and self-hosted.
+  \item Extensive knowledge of {\bf Terraform}, {\bf CDK} \& {\bf Pulumi} (with {\bf TypeScript \& NodeJS}), having designed and developed a large number of bespoke modules for a myriad of workloads and usecases.
+  \item Experience with {\bf VMware ESXi} and {\bf Xen} Hypervisor as virtualisation platforms, and administration of these systems.
+  \item Experience with the {\bf Atlassian} suite, including Jira, Confluence and Bitbucket.
 \end{itemize}
 \clearpage
 
 \cvsection{Personal Experience}
 I run a homelab for learning new software and practicing, containing a myriad of devices such as a pfSense router, Cisco switches and firewalls, HP and Dell rack servers running Xenserver and Docker, Ubiquiti hardware and a multitude of Raspberry Pi's.
+I've recently delved into running a Kubernetes cluster at home and am in the process of moving personal workloads to it.
 
 \smallskip
 
 \cvsection[page2sidebar]{Previous Experience}
 
+\cvevent{Senior DevOps Engineer}{The Instutitue for Environmental Analytics}{Apr 2020 -- Aug 2023}{Reading}
+\begin{itemize}
+  \item Architected a WRF data pipeline to replace a set of manually configured on-prem VMs. Transitioned their infrastructure into AWS, utilising Step Functions to orchestrate AWS Batch jobs to run the generation in parallel. The rapid prototyping this allowed reduced turnaround time from 2 months to 2 days, and offered a decease in infrastructure and labour cost of over 90\%.
+  \item Transitioned the company from manually-managed/constructed VMs across multiple clouds/on-prem to fully Terraform-managed AWS infrastructure, introducing autoscaling, spot/reserved instance savings and made every host ephemeral
+  \item Transitioned the flagship product, Energy Metric (a SaaS renewable energy modelling webapp) from a single-VM manual deployment to a cloud-native, highly scalable model with CI/CD
+  \item Transitioned company to GitHub Actions with automatically provisioned ephemeral runners, allowing them to go from a single CI run taking up ~5 hours and only having a concurrency of 2 to permitting as many concurrent runs as necessary and taking around 30 minutes
+  \item Worked closely with development teams to understand their CI/CD usecases in order to best develop their automation to match their workflows
+  \item Built out and integrated tools such as Sentry, Rundeck, Slack-integrated bots, Prometheus \& Grafana
+  \item Introduced and trained development teams on Cloud concepts such as lambdas, cloud blob storage, and permissions and how to utilise them effectively when their projects move from local development environments to the cloud.
+\end{itemize}
 
 \cvevent{DevOps Engineer}{FICO}{Oct 2017 -- Apr 2020}{Reading}
 \begin{itemize}
-\item Assisted in transitioning from on-premise voice systems to AWS with a focus on infrastructure as code using CloudFormation 
+\item Assisted in transitioning from on-premise voice systems to AWS with a focus on infrastructure as code using CloudFormation
 \item Spearheaded the effort to containerise existing services to run inside an AWS ECS cluster
 \item Maintained on-premise datacentres running a mixture of CentOS7, RHEL6 and RHEL5 running on both bare-metal and XenServer hypervisors
 \item Implemented and maintained CI/CD pipelines using Drone, CloudFormation and Jenkins

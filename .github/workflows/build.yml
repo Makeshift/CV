@@ -13,7 +13,7 @@ jobs:
       - name: Set Commit Description
         id: commit_desc
         run: |
-          echo "::set-output name=value::$(git log -1 --pretty=%B)"
+          echo "value=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
 
       - name: Regex match on commit
         uses: sunil-samtani/regex-action@v2
