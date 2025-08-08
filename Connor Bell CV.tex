@@ -82,13 +82,13 @@
 Supporting a large group of developers, I am the primary architect and engineer for cloud infrastructure within Echobox, focusing on AWS \& EKS. I pride myself on providing engineers a fast and smooth experience getting their code into production.
 \smallskip
 \begin{itemize}
-  \item Designed and maintained Infrastructure as Code in CDK \& Pulumi targetting AWS and Kubernetes for a variety of workloads
+  \item Designed and maintained Infrastructure as Code in TypeScript using CDK \& Pulumi for a variety of workloads across AWS and Kubernetes
   \item Migrated CI and CD pipelines from CodeBuild/CodePipeline to GitHub Actions, resulting in significant improvements to quality of life for developers along with a 8x decrease in average end-to-end run-time and an overall reduction in cost with smart utilisation of self-hosted runners
-  \item Authored reusable modules following best-practice recommendations to enable developers to easily deploy MongoDB clusters, EKS clusters and GitHub Actions workflows
-  \item Implemented Helm libraries for standard patterns, significantly reducing duplicate code and maintenance requirements, as well as consistency over the org
-  \item Revamped monitoring and metrics aggregation from a variety of methods into a hub-and-spoke style multi-cluster Prometheus + Thanos implementation, allowing both cluster-level and global-level visibility without sacrificing availability
+  \item Maintained a large collection of reusable components for GitHub Actions, Pulumi and Helm with a focus on good documentation, best-practices and ease of use, allowing developers to easily deploy MongoDB clusters, EKS clusters, Actions workflows and their workloads with minimal friction
+  \item Implemented Helm libraries for standard patterns, significantly reducing duplicate code and maintenance requirements.
+  \item Revamped monitoring, metrics \& logging aggregation into a multi-cluster Loki, Prometheus and Grafana stack, allowing both cluster-level and global-level observability
   \item Gave 'deep-dive' presentations to technical teams on best-practice AWS and Kubernetes recommendations and worked with them to ensure their workloads were being ran in a scalable, maintainable way
-  \item Helped plan and orchestrate org-wide migrations of MongoDB and EKS clusters to new regions, ensuring minimal downtime and impact to customers
+  \item Orchestrated org-wide migrations of MongoDB and EKS clusters to new regions, ensuring minimal downtime and impact to customers
 \end{itemize}
 
 \cvsection{Key Skills}
@@ -97,7 +97,7 @@ Supporting a large group of developers, I am the primary architect and engineer 
   \item Significant experience with various {\bf AWS} products, including EC2, ECS, Route53, CloudFormation, Step Functions, S3 and more.
   \item Experience and knowledge of {\bf continuous integration systems} (Github Actions, CircleCI, Jenkins, AWS Code Suite, Drone) and common testing frameworks.
   \item Experience developing both internal and customer-facing bespoke {\bf Node.js} solutions. Some of my personal projects can be found on GitHub.
-  \item Extensive knowledge of {\bf Docker} \& Docker-Compose, focusing on converting existing services to serverless.
+  \item Extensive knowledge of {\bf Docker} \& container orchestration with {\bf Kubernetes}
   \item Experience with designing and maintaining {\bf Kubernetes} clusters for production usage, both in AWS EKS and self-hosted.
   \item Extensive knowledge of {\bf Terraform}, {\bf CDK} \& {\bf Pulumi} (with {\bf TypeScript \& NodeJS}), having designed and developed a large number of bespoke modules for a myriad of workloads and usecases.
   \item Experience with {\bf VMware ESXi} and {\bf Xen} Hypervisor as virtualisation platforms, and administration of these systems.
@@ -106,8 +106,7 @@ Supporting a large group of developers, I am the primary architect and engineer 
 \clearpage
 
 \cvsection{Personal Experience}
-I run a homelab for learning new software and practicing, containing a myriad of devices such as a pfSense router, Cisco switches and firewalls, HP and Dell rack servers running Xenserver and Docker, Ubiquiti hardware and a multitude of Raspberry Pi's.
-I've recently delved into running a Kubernetes cluster at home and am in the process of moving personal workloads to it.
+I run a homelab for learning new software and practicing, containing a myriad of devices such as a pfSense router, Cisco switches and firewalls, HP and Dell rack servers, Ubiquiti hardware and a multitude of Raspberry Pi's. This includes a small Kubernetes cluster with a mix of nodes including the Pi's and Dell servers, which I use to run internal services and Home Assistant.
 
 \smallskip
 
