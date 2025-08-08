@@ -1,29 +1,62 @@
 name: Build & Publish
 on:
   push:
-    tags:
-      - '**'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: ghcr.io/makeshift/cv/pdflatex
     steps:
       - uses: actions/checkout@v4
 
-      - run:
-          docker run --rm -e 'version=${{ github.ref_name }}' -e 'shortversion=${{ github.ref_name }}' -v
-          "$(pwd):/data" blang/latex pdflatex "Connor Bell CV.tex"
+      - name: Bump Version
+        id: bump
+        if: github.ref_name == 'master'
+        run: |
+          last_tag="$(git describe --tags "$(git rev-list --tags --max-count=1)")"
+          commit_messages="$(git log --pretty=format:'%s' "$last_tag"..HEAD | tr '[:upper:]' '[:lower:]')"
+          bump_type="patch"
+          if [[ $commit_messages == *"minor"* ]]; then
+            bump_type="minor"
+          fi
+          if [[ $commit_messages == *"major"* ]]; then
+            bump_type="major"
+          fi
+
+          bump-my-version bump "$bump_type" -vv
+          echo "release=true" >> "$GITHUB_OUTPUT"
+
+      - name: Get Version
+        id: get-version
+        run: |
+          version=$(bump-my-version show current_version)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_ENV"
+          echo "shortversion=$(echo "$version" | tr -d '.')" >> "$GITHUB_ENV"
+
+      - name: Build PDF
+        id: pdf
+        run: |
+          pdflatex "Connor Bell CV.tex"
+          pdf_name="Connor Bell CV v${{ steps.get-version.outputs.version }}.pdf"
+          mv "Connor Bell CV.pdf" "$pdf_name"
+          echo "name=$pdf_name" >> "$GITHUB_OUTPUT"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Connor Bell CV.pdf
-          path: Connor Bell CV.pdf
+          path: ${{ steps.pdf.outputs.name }}
+
+      - uses: ad-m/github-push-action@v0.8.0
+        if: steps.bump.outputs.release == 'true'
+        with:
+          branch: ${{ github.base_ref }}
+          tags: true
 
       - uses: ncipollo/release-action@v1.14.0
+        if: steps.bump.outputs.release == 'true'
         with:
-          tag: ${{ github.ref_name }}
-          name: CV Version ${{ github.ref_name }}
-          artifacts: Connor Bell CV.pdf
-
-      - name: Latest tag
-        uses: EndBug/latest-tag@v1.6.2
+          tag: ${{ steps.get-version.outputs.tag }}
+          name: CV ${{ steps.get-version.outputs.tag }}
+          artifacts: ${{ steps.pdf.outputs.name }}

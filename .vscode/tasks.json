@@ -6,7 +6,7 @@
     {
       "label": "Build PDF",
       "type": "shell",
-      "command": "docker run --rm -e 'version=1.0.0' -e 'shortversion=100' -v \"${workspaceFolder}:/data\" blang/latex pdflatex \"Connor Bell CV.tex\"",
+      "command": "docker run --rm -e 'version=1.0.0' -e 'shortversion=100' -v \"${workspaceFolder}:/home/latex\" --user=\"$(id -u):$(id -g)\" leplusorg/latex:latest-alpine pdflatex \"Connor Bell CV.tex\"",
       "problemMatcher": []
     }
   ]
