@@ -4,7 +4,7 @@ This is my CV, written in LaTeX.
 
 ## Download
 
-The latest copy of my CV can be downloaded in PDF format from [here](https://github.com/Makeshift/CV/releases/download/latest/Connor.Bell.CV.pdf).
+The latest copy of my CV can be downloaded in PDF format from [here](https://github.com/Makeshift/CV/releases/latest/download/Connor.Bell.CV.pdf).
 
 ## Website
 
