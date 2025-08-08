@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: ghcr.io/${{ github.repository }}/pdflatex
+    container: ghcr.io/makeshift/cv/pdflatex
     steps:
       - uses: actions/checkout@v4
 
